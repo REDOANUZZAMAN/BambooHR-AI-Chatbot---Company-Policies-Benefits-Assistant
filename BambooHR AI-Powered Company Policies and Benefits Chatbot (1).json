@@ -1,0 +1,1295 @@
+{
+  "name": "BambooHR AI-Powered Company Policies and Benefits Chatbot",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "# https://github.com/REDOANUZZAMAN",
+        "height": 80,
+        "width": 688,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        17952,
+        6736
+      ],
+      "typeVersion": 1,
+      "id": "414eaa7c-6930-43f5-85e0-8a5ca623cb9e",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {},
+      "id": "ba2b9ba7-9820-44c6-ad8b-bc797407cd74",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        16192,
+        6416
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "dataType": "binary",
+        "options": {}
+      },
+      "id": "6b4ecdb0-8f87-4822-b3eb-b7f0bb251624",
+      "name": "Default Data Loader",
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "position": [
+        17520,
+        6592
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "b457e45a-e13c-40e9-a767-f6381a575cee",
+      "name": "Embeddings OpenAI",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "position": [
+        17296,
+        6592
+      ],
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "chunkOverlap": 100,
+        "options": {}
+      },
+      "id": "acd5ce7b-653a-4ff2-b097-32fd24f386ce",
+      "name": "Recursive Character Text Splitter",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "position": [
+        17504,
+        6736
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {},
+      "id": "bfe3173a-44e3-4526-b7a5-bcc70b2384c6",
+      "name": "Window Buffer Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "position": [
+        16432,
+        7200
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "79872998-3c91-4764-bd3f-7583e1fdf85e",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        16272,
+        7200
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "name": "company_files",
+        "description": "Retrieves information from the company handbook, 401k policies, benefits overview, and expense policies available to all employees.",
+        "topK": 5
+      },
+      "id": "85a82e97-8ea3-4c9c-b846-38ae578012e7",
+      "name": "Vector Store Tool",
+      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+      "position": [
+        16560,
+        7232
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "9add2ed3-5286-4802-a935-446641eb073f",
+      "name": "OpenAI Chat Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        16656,
+        7456
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "a47a9d04-de09-4de6-95f4-b24156a306c1",
+      "name": "Embeddings OpenAI1",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "position": [
+        16384,
+        7552
+      ],
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "name": "employee_lookup_tool",
+        "description": "Call this tool with the full name of an employee to retrieve their details from our HRIS, including their job title, department, and supervisor. If an employee name is not provided, you may call this tool with a department name to retrieve the most senior person in that department. This tool requires an exact match on employee names but can infer the senior-most person for a department query.",
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $workflow.id }}"
+        },
+        "specifyInputSchema": true,
+        "jsonSchemaExample": "{\n\t\"name\": \"The name of an employee or department\"\n}"
+      },
+      "id": "9357dadf-140b-447f-86b6-bb8b58205e04",
+      "name": "Employee Lookup Tool",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "position": [
+        16880,
+        7216
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "bd4c3c68-63c3-4aae-8133-ddb99771d2b0",
+      "name": "OpenAI Chat Model2",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        17392,
+        7360
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "92c03552-0b12-42a7-afb5-0069aa8a9a2d",
+      "name": "OpenAI Chat Model3",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        18416,
+        7456
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "798f56ed-4fc8-4b48-afb8-d7becaf0f19c",
+      "name": "OpenAI Chat Model4",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        19136,
+        7472
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "86ab7813-504d-4f42-813e-0cdff0a4327f",
+      "name": "Auto-fixing Output Parser",
+      "type": "@n8n/n8n-nodes-langchain.outputParserAutofixing",
+      "position": [
+        19312,
+        7456
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "8b39d374-2333-4580-8a1d-66cf1a3031d8",
+      "name": "OpenAI Chat Model5",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        19216,
+        7552
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"name\": \"The name of an employee\"\n}"
+      },
+      "id": "941aed8c-a307-4b4d-98b9-e00cfdb9cc42",
+      "name": "Structured Output Parser",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "position": [
+        19520,
+        7552
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "content": "## BambooHR AI-Powered HR Benefits and Company Policies Chatbot",
+        "height": 780.6181567295652,
+        "width": 873.5637402697844,
+        "color": 4
+      },
+      "id": "cec764f7-0698-4add-9b8a-85498139ff9b",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        16112,
+        6928
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## (Optional) STEP #2: Set up employee lookup tool",
+        "height": 781.525845027296,
+        "width": 2783.3549952823255,
+        "color": 7
+      },
+      "id": "ba3b7dad-83ac-45c0-af59-377ad4710f93",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        17024,
+        6928
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "getAll",
+        "returnAll": true,
+        "simplifyOutput": false
+      },
+      "id": "25de6e0b-1460-405a-93c5-271fbfc39242",
+      "name": "GET all files",
+      "type": "n8n-nodes-base.bambooHr",
+      "position": [
+        16400,
+        6416
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "Toggle **off** the _simplify_ option to ensure categories are retrieved as well",
+        "height": 99.24268260893132,
+        "width": 177.89252000024067,
+        "color": 5
+      },
+      "id": "df62288d-de1f-4845-98a3-4b484d41fe0b",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        16352,
+        6576
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "b85b86cd-0b54-4348-a538-8ff4ae625b9a",
+              "operator": {
+                "name": "filter.operator.equals",
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.name }}",
+              "rightValue": "=Company Files"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ff270d8b-593d-4379-9b2e-fa0f33573f1e",
+      "name": "Filter out files from undesired categories",
+      "type": "n8n-nodes-base.filter",
+      "position": [
+        16592,
+        6416
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "files",
+        "options": {}
+      },
+      "id": "547cae38-7347-489b-b533-b93f51387c36",
+      "name": "Split out individual files",
+      "type": "n8n-nodes-base.splitOut",
+      "position": [
+        16800,
+        6416
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "73cc2cb9-04fa-43e7-a459-de0bf26ffb18",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.originalFileName.endsWith(\".pdf\") }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d41d94d0-42e1-4389-8ed1-99adbeb3bead",
+      "name": "Filter out non-pdf files",
+      "type": "n8n-nodes-base.filter",
+      "position": [
+        16992,
+        6416
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "download",
+        "fileId": "={{ $json.id }}"
+      },
+      "id": "fbb25774-8f1f-4f6d-bead-3d1b2e68bb4f",
+      "name": "Download file from BambooHR",
+      "type": "n8n-nodes-base.bambooHr",
+      "position": [
+        17200,
+        6416
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": {
+          "__rl": true,
+          "mode": "list",
+          "value": "company_files",
+          "cachedResultName": "company_files"
+        },
+        "options": {
+          "queryName": "match_files"
+        }
+      },
+      "id": "1f08bad0-7ec1-486c-aad2-20ffbb70f0ed",
+      "name": "Supabase Vector Store",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "position": [
+        17392,
+        6416
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "This employee lookup tool gives the AI Benefits and Company Policies chatbot additional superpowers by allowing it to **search for an individual or a department to retrieve contact information from BambooHR**.",
+        "height": 91.00370621080086,
+        "width": 530.9221622705562,
+        "color": 5
+      },
+      "id": "fd78b50a-325b-4cdf-9186-08eee16acae8",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        17040,
+        6992
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "fe94661b-09db-4fd1-84b2-0125a2ad43d8",
+      "name": "Employee initiates a conversation",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "position": [
+        16192,
+        6992
+      ],
+      "webhookId": "27ec9df7-5007-4642-81c7-7fcf7e834c43",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "tableName": {
+          "__rl": true,
+          "mode": "list",
+          "value": "company_files",
+          "cachedResultName": "company_files"
+        },
+        "options": {
+          "queryName": "match_files"
+        }
+      },
+      "id": "434a1f38-f0a2-409e-8604-c5057760a5a9",
+      "name": "Supabase Vector Store Retrieval",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "position": [
+        16384,
+        7392
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "### AI Chatbot Operating Guidelines \n- When an employee asks for a contact person, first attempt to find the relevant contact in company_files. \n- If a contact person is found but their details (e.g., email or phone number) are missing, use the `employee_lookup_tool` to retrieve their contact details. \n- If no contact person is found: \n 1. Use the `employee_lookup_tool` with \"HR\" (or another relevant department) to retrieve the most senior person in that department. \n 2. If no senior contact is found, ask the employee for their name. \n 3. Use the `employee_lookup_tool` to retrieve their supervisor’s name. \n 4. Use the `employee_lookup_tool` to retrieve their supervisor’s details. \n 5. Provide the supervisor's contact information and recommend them as the best next point of contact. ",
+        "height": 281.07009330339326,
+        "width": 865.771928038017
+      },
+      "id": "f477848d-03ed-4601-bce1-91fa6153cc17",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        16112,
+        7728
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {},
+      "id": "c88fa074-8c80-4828-aacc-057be518c141",
+      "name": "AI-Powered HR Benefits and Company Policies Chatbot",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        17072,
+        7200
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.query.name }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "person",
+              "description": "This is the name of a person."
+            },
+            {
+              "category": "department",
+              "description": "This is the name of a department within the company."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d7b1c215-4837-4efa-9372-5f5115380ce9",
+      "name": "Text Classifier",
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "position": [
+        17280,
+        7200
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "returnAll": true
+      },
+      "id": "b6010e70-3088-42f4-81f6-cdc6eba173e6",
+      "name": "GET all employees",
+      "type": "n8n-nodes-base.bambooHr",
+      "position": [
+        17696,
+        7088
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "e80c892e-21dc-4d6e-8ef6-c2ffaea6d43e",
+              "operator": {
+                "name": "filter.operator.equals",
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.displayName }}",
+              "rightValue": "={{ $('AI-Powered HR Benefits and Company Policies Chatbot').item.json.query.name }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5836cfd1-aac8-4148-a43e-5f2915e3d0b2",
+      "name": "Filter out other employees",
+      "type": "n8n-nodes-base.filter",
+      "position": [
+        17904,
+        7088
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "73ae7ef0-339a-4e32-bbc9-c40cefd37757",
+              "name": "response",
+              "type": "string",
+              "value": "={{ $json.toJsonString() }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a3d0c71c-ad7c-49a3-9b27-454a252030c3",
+      "name": "Stringify employee record for response",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        18096,
+        7088
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "returnAll": true
+      },
+      "id": "ca9dab36-2b47-4e85-afda-710be36cead7",
+      "name": "GET all employees (second path)",
+      "type": "n8n-nodes-base.bambooHr",
+      "position": [
+        17696,
+        7296
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "department",
+              "renameField": true,
+              "outputFieldName": "departments"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9c51c392-a59d-4cc1-84dd-6ae9c55e1d30",
+      "name": "Extract departments",
+      "type": "n8n-nodes-base.aggregate",
+      "position": [
+        17904,
+        7296
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "34f456ff-d2c5-431f-ade3-ace48abd0c6a",
+              "name": "departments",
+              "type": "array",
+              "value": "={{ $json.departments.unique() }}"
+            },
+            {
+              "id": "cf31288a-65fc-45c6-8b6f-6680020dce09",
+              "name": "query",
+              "type": "string",
+              "value": "={{ $('Text Classifier').item.json.query.name }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "421a27cf-5067-461c-b736-59330bcdb137",
+      "name": "Ensure uniqueness in department list",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        18096,
+        7296
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.query }}",
+        "attributes": {
+          "attributes": [
+            {
+              "name": "department",
+              "description": "=The department from the following list that would be most applicable:\n{{ $json.departments }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2ff7bbe8-229d-4f78-b337-0866c6b6486b",
+      "name": "Extract department",
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "position": [
+        18304,
+        7296
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "returnAll": true
+      },
+      "id": "9647153c-4a58-4627-aa1a-660d4a85883c",
+      "name": "Retrieve all employees",
+      "type": "n8n-nodes-base.bambooHr",
+      "position": [
+        18656,
+        7296
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "a88bf53c-ecfd-49a7-8180-1e8b8eaeb6fd",
+              "operator": {
+                "name": "filter.operator.equals",
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.department }}",
+              "rightValue": "={{ $('Extract department').item.json.output.department }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4ec5a432-b4ca-4954-950b-8a61786fcebe",
+      "name": "Filter out other departments",
+      "type": "n8n-nodes-base.filter",
+      "position": [
+        18864,
+        7296
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "department_employees",
+        "include": "specifiedFields",
+        "fieldsToInclude": "id, displayName, jobTitle, workEmail",
+        "options": {}
+      },
+      "id": "5f64a7f3-a45d-4464-b718-3f7de6eef272",
+      "name": "Extract relevant employee fields",
+      "type": "n8n-nodes-base.aggregate",
+      "position": [
+        19056,
+        7296
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Who is the most senior employee from this list:\n{{ $json.department_employees.toJsonString() }}",
+        "hasOutputParser": true
+      },
+      "id": "c051d6cf-0223-424e-83a7-ddb358cb36a1",
+      "name": "Identify most senior employee",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "position": [
+        19232,
+        7296
+      ],
+      "typeVersion": 1.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2b4412bf-142b-4ba0-a6b2-654e97c263e5",
+              "name": "response",
+              "type": "string",
+              "value": "={{ $json.output.name }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7ffbbba0-fcce-45f5-9edf-b9a9118fcf8b",
+      "name": "Format name for response",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        19600,
+        7296
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a helpful HR assistant accessible by employees at our company.\n\nObjective: \nAssist employees with questions regarding company policies, documents, and escalation procedures.\n\nTools: \n1. A vector store database (company_files) containing the company handbook, 401k policy, expense policy, and employee benefits. \n2. An employee lookup tool (employee_lookup_tool) that retrieves details about an employee when provided with their name. It can also retrieve the most senior person in a department if given a department name. \n\nGuidelines: \n- When an employee asks for a contact person, first attempt to find the relevant contact in company_files. \n- If a contact person is found but their details (e.g., email or phone number) are missing, use the `employee_lookup_tool` to retrieve their contact details. \n- If no contact person is found: \n 1. Use the `employee_lookup_tool` with \"HR\" (or another relevant department) to retrieve the most senior person in that department. \n 2. If no senior contact is found, ask the employee for their name. \n 3. Use the `employee_lookup_tool` to retrieve their supervisor’s name. \n 4. Use the `employee_lookup_tool` to retrieve their supervisor’s details. \n 5. Provide the supervisor's contact information and recommend them as the best next point of contact. \n"
+        }
+      },
+      "id": "289d6235-0d68-475a-90c8-925e8da663f1",
+      "name": "HR AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        16480,
+        6992
+      ],
+      "typeVersion": 1.7
+    },
+    {
+      "parameters": {
+        "content": "### GetAll employees from BambooHR\nBambooHR does not offer search by {field} functionality for its `/employees` endpoint, so filtering must be done after data retrieval. This can be inefficient for very large organizations where there may be multiple employees with the same name or simply a large number of employees.",
+        "height": 180.79319430657273,
+        "width": 340.93489445096634,
+        "color": 3
+      },
+      "id": "89e82789-7d7a-4e97-8fd0-b4792e43f53f",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        17040,
+        7520
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "### GET singular employee by name path\nThis path may be used multiple times by the HR AI Agent to look up the employee's details, and then to look up their supervisor's details.",
+        "height": 89.69037140899545,
+        "width": 542.9452105095002,
+        "color": 5
+      },
+      "id": "bc85fc65-d885-4ecc-8c12-66c8d04b736b",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        17680,
+        6992
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "### GET senior leader of department path\nThis path would normally only be used when no other contacts can be identified from the company_files. The employee can retrieve the contact details for the most senior leader of a department should they request it.",
+        "height": 121.0648445295759,
+        "width": 542.9452105095002,
+        "color": 5
+      },
+      "id": "d7cf6e6b-7c2e-4de4-af3a-99b346a66a26",
+      "name": "Sticky Note8",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        17680,
+        7472
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "### Final node returns employee name\nThe AI Agent can then call the employee lookup path to retrieve details, if requested.",
+        "height": 97.8161667645835,
+        "width": 300.8019702746294,
+        "color": 5
+      },
+      "id": "4fe67528-06cd-4817-8e85-b2fec8f696a7",
+      "name": "Sticky Note9",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        19456,
+        7168
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## STEP #1: Retrieve company policies and load them into a vector store",
+        "height": 582.7965199011514,
+        "width": 1695.17727595829,
+        "color": 7
+      },
+      "id": "9fd07202-8b30-4692-961c-de7012d24bdf",
+      "name": "Sticky Note11",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        16128,
+        6352
+      ],
+      "typeVersion": 1
+    }
+  ],
+  "pinData": {
+    "AI-Powered HR Benefits and Company Policies Chatbot": [
+      {
+        "json": {
+          "query": {
+            "name": "HR"
+          }
+        }
+      }
+    ]
+  },
+  "connections": {
+    "GET all files": {
+      "main": [
+        [
+          {
+            "node": "Filter out files from undesired categories",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "GET all employees",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "GET all employees (second path)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET all employees": {
+      "main": [
+        [
+          {
+            "node": "Filter out other employees",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "HR AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vector Store Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "HR AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store Retrieval",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract department": {
+      "main": [
+        [
+          {
+            "node": "Retrieve all employees",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Vector Store Tool",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Extract department",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Identify most senior employee",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model5": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Auto-fixing Output Parser",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract departments": {
+      "main": [
+        [
+          {
+            "node": "Ensure uniqueness in department list",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Employee Lookup Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "HR AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "HR AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retrieve all employees": {
+      "main": [
+        [
+          {
+            "node": "Filter out other departments",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter out non-pdf files": {
+      "main": [
+        [
+          {
+            "node": "Download file from BambooHR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Auto-fixing Output Parser",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Auto-fixing Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Identify most senior employee",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter out other employees": {
+      "main": [
+        [
+          {
+            "node": "Stringify employee record for response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split out individual files": {
+      "main": [
+        [
+          {
+            "node": "Filter out non-pdf files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file from BambooHR": {
+      "main": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter out other departments": {
+      "main": [
+        [
+          {
+            "node": "Extract relevant employee fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Identify most senior employee": {
+      "main": [
+        [
+          {
+            "node": "Format name for response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET all employees (second path)": {
+      "main": [
+        [
+          {
+            "node": "Extract departments",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store Retrieval": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Vector Store Tool",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract relevant employee fields": {
+      "main": [
+        [
+          {
+            "node": "Identify most senior employee",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Employee initiates a conversation": {
+      "main": [
+        [
+          {
+            "node": "HR AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "GET all files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ensure uniqueness in department list": {
+      "main": [
+        [
+          {
+            "node": "Extract department",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter out files from undesired categories": {
+      "main": [
+        [
+          {
+            "node": "Split out individual files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI-Powered HR Benefits and Company Policies Chatbot": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c356615b-a269-4e0d-812b-9dcf1278941a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3ea5ee65f04b27a744235742229cd33fb9bc1c1a8cd25b6ec8329b2619003115"
+  },
+  "id": "aABkxEso7UJYqtFW",
+  "tags": []
+}
